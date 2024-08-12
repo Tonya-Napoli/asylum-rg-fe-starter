@@ -45,6 +45,22 @@
 //  ADD THIS BACK IN WHEN YOU HAVE THE GRAPHS SECTION
 // }
 
+.graphs-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+
+.graphs-section img {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .gr-office-img, .gr-nationality-img, .gr-overtime-img {
+    border-radius: 8px;
+  }
+
 .view-more-data-btn-container {
     height: 44px;
     width: 180px;
@@ -356,26 +372,36 @@
     }
 
     .graphs-section {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Aligns items at the top */
+      }
+      
+      .grant-rates-by-office-graph-container,
+      .grant-rates-by-nationality-container,
+      .grant-rates-over-time-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         width: 100%;
-    }
-
-    .grant-rates-by-office-graph-container {
-        margin-top: 20%;
-        margin-bottom: 40%;
-    }
-
-    .grant-rates-by-nationality-container {
-        margin-bottom: 30%;
-    }
-
-    .gr-nationality-img {
-        margin-bottom: 8%;
-    }
-
-    .grant-rates-over-time-container {
-        margin-bottom: 40%;
-    }
+      }
+      
+      .grant-rates-by-office-graph-container img,
+      .grant-rates-by-nationality-container img,
+      .grant-rates-over-time-container img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px; /* Space between the image and text */
+      }
+      
+      .grant-rates-by-office-graph-container p,
+      .grant-rates-by-nationality-container p,
+      .grant-rates-over-time-container p {
+        margin: 0;
+        font-size: 1rem;
+      }
+      
 
     .middle-section {
         display: flex;
@@ -469,29 +495,36 @@
         width: 85%;
         margin: 0 auto;
     }
-
+// not aligning
     .graphs-section {
-        display: block;
-        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px; /* Space between the graphs */
+      }
+      
+      .graph-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+    
+    .graph-container img {
+        max-height: 150px; /* Force all images to have the same height */
+        width: auto;
+        margin-bottom: 10px;
+      }
+      
+    
+    .graph-container p {
+        margin: 0;
+        font-size: 1rem;
     }
-
-    .grant-rates-by-office-graph-container {
-        margin-top: 20%;
-        margin-bottom: 40%;
-    }
-
-    .grant-rates-by-nationality-container {
-        margin-bottom: 25%;
-    }
-
-    .gr-nationality-img {
-        margin-bottom: 8%;
-    }
-
-    .grant-rates-over-time-container {
-        margin-bottom: 40%;
-    }
-
+    
+    
+   
+      
     .middle-section {
         display: block;
         width: 100%;
