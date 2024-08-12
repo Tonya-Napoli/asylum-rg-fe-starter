@@ -28,40 +28,40 @@ function RenderLandingPage(props) {
         </div>
       </div>
 
-      {/* Graphs Section using inline styles */}
-      <div className="graphs-section">
-        <div className="grant-rates-by-office-graph-container" style={{ textAlign: 'center' }}>
-        <img src={GrantRatesByOfficeImg} alt="Grant Rates by Office" style={{ marginBottom: '25px' }} className="gr-office-img" />
-        <p><strong>Search Grant Rates by Office</strong></p>
-        </div>
-        <div className="grant-rates-by-nationality-container" style={{ textAlign: 'center' }}>
-        <img src={GrantRatesByNationalityImg} alt="Grant Rates by Nationality" style={{ marginBottom: '25px' }} className="gr-nationality-img" />
-        <p><strong>Search Grant Rates by Nationality</strong></p>
-        </div>
-        <div className="grant-rates-over-time-container" style={{ textAlign: 'center' }}>
-        <img src={GrantRatesOverTimeImg} alt="Grant Rates Over Time" style={{ marginBottom: '25px' }} className="gr-overtime-img" />
-        <p><strong>Search Grant Rates Over Time</strong></p>
-        </div>
-      </div>
+      {/* Graphs Section */}
+      <div className="graphs-section" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start', margin: '20px 0' }}>
+    <div className="grant-rates-by-office-graph-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <img src={GrantRatesByOfficeImg} alt="Grant Rates by Office" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
+        <p><h1><strong>Search Grant Rates by Office</strong></h1></p>
+    </div>
+    <div className="grant-rates-by-nationality-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <img src={GrantRatesByNationalityImg} alt="Grant Rates by Nationality" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
+        <p><h1><strong>Search Grant Rates by Nationality</strong></h1></p>
+    </div>
+    <div className="grant-rates-over-time-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <img src={GrantRatesOverTimeImg} alt="Grant Rates Over Time" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
+        <p><h1><strong>Search Grant Rates Over Time</strong></h1></p>
+    </div>
+</div>
+
 
       {/* Buttons using Inline Styles to position horizontally */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '40px', marginBottom: '150px' }}>
-  <Button
-    type="default"
-    style={{ backgroundColor: '#404C4A', color: '#FFFFFF', marginRight: '10px' }}
-    onClick={() => history.push('/graphs')}
-  >
-    View the Data
-  </Button>
-  <Button
-    type="default"
-    style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
-    onClick={() => history.push('/graphs')}
-  >
-    Download the Data
-  </Button>
-</div>
-
+        <Button
+          type="default"
+          style={{ backgroundColor: '#404C4A', color: '#FFFFFF', marginRight: '10px' }}
+          onClick={() => history.push('/graphs')}
+        >
+          View the Data
+        </Button>
+        <Button
+          type="default"
+          style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
+          onClick={() => history.push('/graphs')}
+        >
+          Download the Data
+        </Button>
+      </div>
 
       <div className="middle-section" style={{ marginBottom: '75px' }}>
         <div className="hrf-img-container">
@@ -79,28 +79,48 @@ function RenderLandingPage(props) {
           </h3>
         </div>
       </div>
-      {/* Systemic Disparity Insights */}
-  <div className="system-disparity-section" style={{ textAlign: 'center', padding: '40px 20px' }}>
-  <h1 style={{ marginBottom: '40px' }}>Systemic Disparity Insights</h1>
-  
-  <div className="read-more-btn-container" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-    <Button
-      type="default"
-      style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
-      onClick={() => history.push('/graphs')}
-    >
-      Read More
-    </Button>
-  </div>
-</div>
 
-<div style={{ textAlign: 'center' }}>
-  <p onClick={() => scrollToTop()} className="back-to-top">
-    Back To Top ^
-  </p>
-</div>
-    </div>
-  );
+      {/* Systemic Disparity Insights */}
+      <div className="system-disparity-section" style={{ textAlign: 'center', padding: '40px 20px' }}>
+         <h1>Systemic Disparity Insights</h1>
+  
+         <div className="data-container">
+           <div className="data-point-container first-data-point-container">
+              <h2>36%</h2>
+               <p>By the end of the Trump administration, the average asylum office grant rate had fallen
+               36 percent from an average of 44 percent in fiscal year 2016 to 28 percent in fiscal
+               year 2020.</p>
+         </div>
+         <div className="data-point-container second-data-point-container">
+           <h2>5%</h2>
+           <p>The New York asylum office grant rate dropped to 5 percent in fiscal year 2020.</p>
+        </div>
+       <div className="data-point-container third-data-point-container">
+         <h2>6x Lower</h2>
+         <p>Between fiscal year 2017 and 2020, the New York asylum office’s average grant 
+          rate was six times lower than the San Francisco asylum office.</p>
+       </div>
+  </div>
+
+        <div className="read-more-btn-container">
+          <Button
+            type="default"
+            onClick={() => history.push('/graphs')}
+          >
+            Read More
+          </Button>
+        </div>
+      </div>
+
+      <div style={{ textAlign: 'center' }}>
+        <p onClick={() => scrollToTop()} className="back-to-top">
+          Back To Top ^
+        </p>
+      </div>
+    </div> 
+  ); 
 }
+
 export default RenderLandingPage;
+
 
