@@ -44,28 +44,28 @@ function RenderLandingPage(props) {
    </div>
 </div>
 
-      {/* Buttons using Inline Styles to position horizontally */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '40px', marginBottom: '150px' }}>
-        <Button
-          type="default"
-          style={{ backgroundColor: '#404C4A', color: '#FFFFFF', marginRight: '10px' }}
-          onClick={() => history.push('/graphs')}
-        >
-          View the Data
-        </Button>
-        <Button
+{/* View Data and Download Data Buttons */}
+<div className="button-container">
+  <Button
     type="default"
-    style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
+    className="custom-button"
+    onClick={() => history.push('/graphs')}
+    >
+      View the Data
+   </Button>
+   <Button
+    type="default"
+    className = "custom-button"
     onClick={() => {
       const downloadLink = document.createElement('a');
       downloadLink.href = 'https://humanrightsfirst.org/wp-content/uploads/2022/10/COW2021001887-I589Data.csv';
-      downloadLink.download = 'COW2021001887-I589Data.csv'; 
+      downloadLink.download = 'COW2021001887-I589Data.csv';
       downloadLink.click();
-    }}
-  >
-    Download the Data
-  </Button>
-      </div>
+  }}
+>
+  Download the Data
+</Button>
+</div>
 
       <div className="middle-section" style={{ marginBottom: '75px' }}>
         <div className="hrf-img-container">
@@ -109,16 +109,15 @@ function RenderLandingPage(props) {
         <div className="read-more-btn-container">
           <Button
           type="default"
+          className="ant-btn"
           onClick={() => {
             const newTab = document.createElement('a');
             newTab.href = 'https://humanrightsfirst.org/library/uscis-records-reveal-systemic-disparities-in-asylum-decisions/';
             newTab.target = '_blank';
             newTab.rel = 'noopener noreferrer';
             newTab.click();
-          }}
-          style = {{backgroundColor: '#404C4A', color: '#FFFFFF', width: '100px', height: '45px', fontSize: '.75rem', fontWeight: 'bold'}}
-        >
-           
+          }}  
+        > 
           Read More
           </Button>
         </div>
