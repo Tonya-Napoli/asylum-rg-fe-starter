@@ -30,20 +30,19 @@ function RenderLandingPage(props) {
 
       {/* Graphs Section */}
       <div className="graphs-section" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start', margin: '20px 0' }}>
-    <div className="grant-rates-by-office-graph-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src={GrantRatesByOfficeImg} alt="Grant Rates by Office" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
-        <p><h1><strong>Search Grant Rates by Office</strong></h1></p>
-    </div>
-    <div className="grant-rates-by-nationality-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+         <div className="grant-rates-by-office-graph-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+         <img src={GrantRatesByOfficeImg} alt="Grant Rates by Office" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
+         <p><h1><strong>Search Grant Rates by Office</strong></h1></p>
+     </div>
+     <div className="grant-rates-by-nationality-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <img src={GrantRatesByNationalityImg} alt="Grant Rates by Nationality" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
         <p><h1><strong>Search Grant Rates by Nationality</strong></h1></p>
-    </div>
-    <div className="grant-rates-over-time-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+     </div>
+     <div className="grant-rates-over-time-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <img src={GrantRatesOverTimeImg} alt="Grant Rates Over Time" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
         <p><h1><strong>Search Grant Rates Over Time</strong></h1></p>
     </div>
 </div>
-
 
       {/* Buttons using Inline Styles to position horizontally */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '40px', marginBottom: '150px' }}>
@@ -55,12 +54,17 @@ function RenderLandingPage(props) {
           View the Data
         </Button>
         <Button
-          type="default"
-          style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
-          onClick={() => history.push('/graphs')}
-        >
-          Download the Data
-        </Button>
+    type="default"
+    style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
+    onClick={() => {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = 'https://humanrightsfirst.org/wp-content/uploads/2022/10/COW2021001887-I589Data.csv';
+      downloadLink.download = 'COW2021001887-I589Data.csv'; 
+      downloadLink.click();
+    }}
+  >
+    Download the Data
+  </Button>
       </div>
 
       <div className="middle-section" style={{ marginBottom: '75px' }}>
@@ -82,7 +86,7 @@ function RenderLandingPage(props) {
 
       {/* Systemic Disparity Insights */}
       <div className="system-disparity-section" style={{ textAlign: 'center', padding: '40px 20px' }}>
-         <h1>Systemic Disparity Insights</h1>
+         <h1 style={{fontSize: '2.5rem', fontWeight: 'bold'}}>Systemic Disparity Insights</h1>
   
          <div className="data-container">
            <div className="data-point-container first-data-point-container">
@@ -104,10 +108,18 @@ function RenderLandingPage(props) {
 
         <div className="read-more-btn-container">
           <Button
-            type="default"
-            onClick={() => history.push('/graphs')}
-          >
-            Read More
+          type="default"
+          onClick={() => {
+            const newTab = document.createElement('a');
+            newTab.href = 'https://humanrightsfirst.org/library/uscis-records-reveal-systemic-disparities-in-asylum-decisions/';
+            newTab.target = '_blank';
+            newTab.rel = 'noopener noreferrer';
+            newTab.click();
+          }}
+          style = {{backgroundColor: '#404C4A', color: '#FFFFFF', width: '100px', height: '45px', fontSize: '.75rem', fontWeight: 'bold'}}
+        >
+           
+          Read More
           </Button>
         </div>
       </div>
