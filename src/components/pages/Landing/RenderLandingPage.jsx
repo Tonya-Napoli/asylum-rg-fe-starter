@@ -29,19 +29,19 @@ function RenderLandingPage(props) {
       </div>
 
       {/* Graphs Section */}
-      <div className="graphs-section" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start', margin: '20px 0' }}>
-         <div className="grant-rates-by-office-graph-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-         <img src={GrantRatesByOfficeImg} alt="Grant Rates by Office" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
-         <p><h1><strong>Search Grant Rates by Office</strong></h1></p>
-     </div>
-     <div className="grant-rates-by-nationality-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src={GrantRatesByNationalityImg} alt="Grant Rates by Nationality" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
-        <p><h1><strong>Search Grant Rates by Nationality</strong></h1></p>
-     </div>
-     <div className="grant-rates-over-time-container" style={{ textAlign: 'center', width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src={GrantRatesOverTimeImg} alt="Grant Rates Over Time" style={{ marginBottom: '10px', width: '100%', height: '200px', objectFit: 'contain' }} />
-        <p><h1><strong>Search Grant Rates Over Time</strong></h1></p>
-    </div>
+      <div className="graphs-section">
+   <div className="grant-rates-by-office-graph-container">
+      <img src={GrantRatesByOfficeImg} alt="Grant Rates by Office" className="gr-office-img" />
+      <h1>Search Grant Rates by Office</h1>
+   </div>
+   <div className="grant-rates-by-nationality-container">
+      <img src={GrantRatesByNationalityImg} alt="Grant Rates by Nationality" className="gr-nationality-img" />
+      <h1>Search Grant Rates by Nationality</h1>
+   </div>
+   <div className="grant-rates-over-time-container">
+      <img src={GrantRatesOverTimeImg} alt="Grant Rates Over Time" className="gr-overtime-img" />
+      <h1>Search Grant Rates Over Time</h1>
+   </div>
 </div>
 
       {/* Buttons using Inline Styles to position horizontally */}
