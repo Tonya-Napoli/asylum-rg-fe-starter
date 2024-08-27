@@ -22,15 +22,18 @@ function OfficeHeatMap(props) {
   const [rowsForTable, setRowsForTable] = useState([]);
 
   useEffect(() => {
+  
     if (officeHeatMapData['officeHeatMapDataObject'] !== undefined) {
       setPlotlyGraphAxis({
         x: officeHeatMapData['officeHeatMapDataObject']['x'],
         y: officeHeatMapData['officeHeatMapDataObject']['y'],
         z: officeHeatMapData['officeHeatMapDataObject']['z'],
       });
+
     } else {
       setPlotlyGraphAxis({ x: [], y: [], z: [] });
     }
+
     if (officeHeatMapData.rowsForTable === undefined) {
       setRowsForTable([]);
     } else {
@@ -58,6 +61,7 @@ function OfficeHeatMap(props) {
       }}
     >
       <p>Showing: Rates of 'granted' case decision by asylum office, by year</p>
+
       <Plot
         data={[
           {

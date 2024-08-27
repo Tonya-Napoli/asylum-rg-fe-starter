@@ -9,7 +9,7 @@ import TimeSeriesSingleOffice from './Graphs/TimeSeriesSingleOffice';
 import YearLimitsSelect from './YearLimitsSelect';
 import ViewSelect from './ViewSelect';
 import axios from 'axios';
-import { resetVisualizationQuery } from '../../../state/actionCreators';
+import { resetVisualizationQuery, setVisualizationData } from '../../../state/actionCreators';
 import { colors } from '../../../styles/data_vis_colors';
 import ScrollToTopOnMount from '../../../utils/scrollToTopOnMount';
 
@@ -37,7 +37,7 @@ function GraphWrapper(props) {
         map_to_render = <CitizenshipMapAll />;
         break;
       default:
-        map_to_render = null; // ensure map_to_render is defined
+        map_to_render = null;
         break;
     }
   } else {
@@ -49,57 +49,120 @@ function GraphWrapper(props) {
         map_to_render = <CitizenshipMapSingleOffice office={office} />;
         break;
       default:
-        map_to_render = null; // ensure map_to_render is defined
+        map_to_render = null;
         break;
     }
   }
 
+   const stateSettingCallback = (view, office, data) => {
+    dispatch(setVisualizationData(view, office, data));
+  };
   function updateStateWithNewData(years, view, office, stateSettingCallback) {
     let apiEndpoint;
-
-    // Determine the correct API endpoint based on the view
+  
     switch (view) {
-        case 'time-series':
-        case 'office-heat-map':
-            apiEndpoint = 'https://hrf-asylum-be-b.herokuapp.com/cases/fiscalSummary';
-            break;
-        case 'citizenship':
-            apiEndpoint = 'https://hrf-asylum-be-b.herokuapp.com/cases/citizenshipSummary';
-            break;
-        default:
-            console.error('Unknown view:', view);
-            return;
+      case 'time-series':
+      case 'office-heat-map':
+        apiEndpoint = 'https://hrf-asylum-be-b.herokuapp.com/cases/fiscalSummary';
+        break;
+      case 'citizenship':
+        apiEndpoint = 'https://hrf-asylum-be-b.herokuapp.com/cases/citizenshipSummary';
+        break;
+      default:
+        console.error('Unknown view:', view);
+        return;
     }
-
+  
     const params = {
-        from: years[0],
-        to: years[1],
+      from: years[0],
+      to: years[1],
     };
-
+  
     if (office && office !== 'all') {
-        params.office = office;
+      params.office = office;
     }
-
- 
+  
     axios
-    .get(apiEndpoint, { params })
-    .then(result => {
+      .get(apiEndpoint, { params })
+      .then(result => {
         const responseData = result.data;
-
-        console.log('API Response:', responseData); // Log the API response for debugging
-
+        console.log('API Response:', responseData);
+  
+        let processedData;
+  
         if (view === 'citizenship') {
-            // For citizenship view, pass the array directly
-            stateSettingCallback(view, office, [{ citizenshipResults: responseData }]);
-        } else {
-            // For other views, pass the data as it is
-            stateSettingCallback(view, office, [responseData]);
+          if (Array.isArray(responseData)) {
+            processedData = {
+              countryGrantRateObj: {
+                countries: responseData.map(item => item.citizenship),
+                countriesPercentGranteds: responseData.map(item => item.granted),
+              },
+              rowsForTable: responseData.map(item => ({
+                Citizenship: item.citizenship,
+                'Total Cases': item.totalCases,
+                '% Granted': Number(item.granted).toFixed(2),
+                '% Admin Close / Dismissal': Number((item.adminClosed / item.totalCases) * 100).toFixed(2),
+                '% Denied': Number((item.denied / item.totalCases) * 100).toFixed(2),
+              })),
+            };
+          } else {
+            console.error('Unexpected data format for Citizenship View:', responseData);
+            return;
+          }
+        } else if (view === 'time-series') {
+          if (responseData.yearResults && Array.isArray(responseData.yearResults)) {
+            processedData = {
+              xYears: responseData.yearResults.map(item => item.fiscal_year),
+              yTotalPercentGranteds: responseData.yearResults.map(item => item.granted),
+              rowsForAllDisplay: responseData.yearResults.map(item => ({
+                'Fiscal Year': item.fiscal_year,
+                'Total Cases': item.totalCases,
+                '% Granted': Number(item.granted).toFixed(2),
+                '% Admin Close / Dismissal': Number((item.adminClosed / item.totalCases) * 100).toFixed(2),
+                '% Denied': Number((item.denied / item.totalCases) * 100).toFixed(2),
+              })),
+            };
+          } else {
+            console.error('Unexpected data format for Time Series View:', responseData);
+            return;
+          }
+        } else if (view === 'office-heat-map') {
+          if (responseData.yearResults && Array.isArray(responseData.yearResults)) {
+            const heatMapData = responseData.yearResults.flatMap(year => 
+              year.yearData.map(office => ({
+                year: year.fiscal_year,
+                office: office.office,
+                granted: office.granted
+              }))
+            );
+  
+            processedData = {
+              officeHeatMapDataObject: {
+                x: heatMapData.map(item => item.office),
+                y: heatMapData.map(item => item.year),
+                z: heatMapData.map(item => item.granted),
+              },
+              rowsForTable: heatMapData.map(item => ({
+                'Year [Office]': `${item.year} [${item.office}]`,
+                '% Granted': Number(item.granted).toFixed(2),
+              })),
+            };
+          } else {
+            console.error('Unexpected data format for Heat Map View:', responseData);
+            return;
+          }
         }
-    })
-    .catch(err => {
+  
+        console.log(`Formatted Data for ${view}:`, processedData);
+  
+        if (processedData) {
+          stateSettingCallback(view, office, processedData);
+        }
+      })
+      .catch(err => {
         console.error('Error fetching data:', err);
-    });
-}
+      });
+  }
   const clearQuery = (view, office) => {
     dispatch(resetVisualizationQuery(view, office));
   };
@@ -132,7 +195,7 @@ function GraphWrapper(props) {
           view={view}
           office={office}
           clearQuery={clearQuery}
-          updateStateWithNewData={updateStateWithNewData}
+          updateStateWithNewData={(years, view, office) => updateStateWithNewData(years, view, office, stateSettingCallback)}
         />
       </div>
     </div>
