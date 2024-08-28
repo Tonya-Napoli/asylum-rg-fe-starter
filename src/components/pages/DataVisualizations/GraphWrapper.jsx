@@ -86,7 +86,6 @@ function GraphWrapper(props) {
       .get(apiEndpoint, { params })
       .then(result => {
         const responseData = result.data;
-        console.log('API Response:', responseData);
   
         let processedData;
   
@@ -152,8 +151,6 @@ function GraphWrapper(props) {
             return;
           }
         }
-  
-        console.log(`Formatted Data for ${view}:`, processedData);
   
         if (processedData) {
           stateSettingCallback(view, office, processedData);
