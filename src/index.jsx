@@ -23,7 +23,7 @@ import reducer from './state/reducers';
 import { colors } from './styles/data_vis_colors';
 
 import Auth0ProviderWithHistory from './auth0-provider-with-history';
-import { useAuth0 } from '@auth0/auth0-react'; // Keep useAuth0 for authentication status if needed
+
 
 const { primary_accent_color } = colors;
 
