@@ -4,13 +4,12 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link
 } from 'react-router-dom';
 
 import 'antd/dist/antd.less';
 import { NotFoundPage } from './components/pages/NotFound';
 import { LandingPage } from './components/pages/Landing';
-import  ProfilePage from './components/pages/ProfilePage';
+import ProfilePage from './components/pages/ProfilePage';
 import PrivateRoute from './components/PrivateRoute';
 
 import { FooterContent, SubFooter } from './components/Layout/Footer';
@@ -24,9 +23,7 @@ import reducer from './state/reducers';
 import { colors } from './styles/data_vis_colors';
 
 import Auth0ProviderWithHistory from './auth0-provider-with-history';
-import LoginButton from './components/login-button';
-import LogoutButton from './components/logout-button';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react'; // Keep useAuth0 for authentication status if needed
 
 const { primary_accent_color } = colors;
 
@@ -47,8 +44,7 @@ ReactDOM.render(
 
 export function App() {
   const { Footer, Header } = Layout;
-  const { isAuthenticated } = useAuth0(); // Access authentication status
-
+  
   return (
     <Layout>
       <Header
@@ -57,14 +53,10 @@ export function App() {
           display: 'flex',
           alignItems: 'center',
           backgroundColor: primary_accent_color,
-          justifyContent: 'space-between', // Adjust alignment
+          justifyContent: 'space-between',
         }}
       >
-        <HeaderContent />
-        {/* Conditionally render buttons based on authentication status */}
-        <div>
-          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
-        </div>
+        <HeaderContent /> {/* Now handles Login/Logout buttons */}
       </Header>
       <Switch>
         <Route path="/" exact component={LandingPage} />
@@ -91,3 +83,5 @@ export function App() {
     </Layout>
   );
 }
+
+
